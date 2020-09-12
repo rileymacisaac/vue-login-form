@@ -4,14 +4,14 @@
 
 		<form class="login__form" @submit="validation" novalidate>
 			<div class="login__input">
-				<label for="username" class="color-light-blue roboto-medium">Username</label>
+				<label for="username" class="color-light-blue roboto-medium">Username (required)</label>
 				<input type="text" id="username" name="username" ref="username" v-model="username" autocomplete="off" v-bind="uAttrs" autofocus required/>
 
 				<div class="login__error" v-if="uError"><strong>Error:</strong> <span id="username-error">{{ uError }}</span></div>
 			</div>
 
 			<div class="login__input">
-				<label for="password" class="color-light-blue roboto-medium">Password</label>
+				<label for="password" class="color-light-blue roboto-medium">Password (required)</label>
 				<button class="login__show-pw bg-light-blue" type="button" :aria-label="!showPw ? 'Show password as plain text. This will display your password on the screen.' : false" @click="showPw = !showPw">{{ showPw ? 'Hide' : 'Show' }}<span class="visually-hidden">password</span></button>
 				<input :type="showPw ? 'text' : 'password'" id="password" name="password" ref="password" v-model="password" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" v-bind="pwAttrs" required/>
 
