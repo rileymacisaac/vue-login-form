@@ -31,19 +31,23 @@
 export default {
 	name: "LoginForm",
 	data: function () {
-		let defaultAttrs = {'aria-invalid': 'false'};
 
 		return {
 			username: null,
 			password: null,
 			uError: null,
 			pwError: null,
-			uAttrs: defaultAttrs,
-			pwAttrs: defaultAttrs,
-			defaultAttrs: defaultAttrs,
+			uAttrs: null,
+			defaultUAttrs: {'aria-invalid': 'false'},
+			pwAttrs: null,
+			defaultPwAttrs: {'aria-invalid': 'false', 'aria-describedby': 'pw-hint'},
 			showPw: false,
 			pwHint: 'Password must contain at least one number, one uppercase letter, and one lowercase letter.'
 		}
+	},
+	mounted() {
+		this.uAttrs = this.defaultUAttrs;
+		this.pwAttrs = this.defaultPwAttrs;
 	},
 	methods: {
 		validation: function (e) {
@@ -73,7 +77,7 @@ export default {
 			} else {
 
 				// No errors so reset data
-				this.uAttrs = this.defaultAttrs;
+				this.uAttrs = this.defaultUAttrs;
 				this.uError = null;
 
 			}
@@ -95,7 +99,7 @@ export default {
 			} else {
 
 				// No errors so reset data
-				this.pwAttrs = this.defaultAttrs;
+				this.pwAttrs = this.defaultPwAttrs;
 				this.pwError = null;
 
 			}
@@ -111,9 +115,16 @@ export default {
 		},
 
 		setErrors: function(input) {
+			var errorMsg = input.parentNode.querySelector('.login__msg--error [id*="-error"]').getAttribute('id');
+
+			if (input.getAttribute('id') === 'password' && !input.validity.patternMismatch) {
+				const hint = input.parentNode.querySelector('.login__msg:not(.login__msg__error)').getAttribute('id');
+				errorMsg = hint.concat(' '+ errorMsg);
+			}
+
 			return {
 				'aria-invalid': 'true',
-				'aria-describedby': input.parentNode.querySelector('.login__error [id*="-error"]').getAttribute('id'),
+				'aria-describedby': errorMsg,
 			}
 		},
 	},
