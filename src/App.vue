@@ -1,32 +1,41 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="app" ref="app" class="roboto">
+    <header class="header">
+      <div class="header__wrapper">
+        <span class="header__lock">{{ $route.name === 'Success' ? '🔓' : '🔒' }}</span>
+
+        <nav class="header__nav">
+          <ul role="list" class="header__nav-items">
+            <li><router-link to="/" class="color-dark-blue roboto-medium">Login</router-link></li>
+            <li><a href="mailto:rileymacisaac@gmail.com" class="color-dark-blue roboto-medium">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <router-view/>
+    </main>
+
+    <footer>
+      <p>Just a simple client-side login form built on <a href="https://vuejs.org/" rel="noopener">Vue</a> by <strong>Riley MacIsaac</strong></p>
+    </footer>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+  @import 'assets/sass/core.scss';
 </style>
+
+<script>
+export default {
+	name: "App",
+	watch: {
+		$route: function () {
+			setTimeout(() => {
+				this.$refs.app.focus();
+			}, 0);
+		}
+	},
+};
+</script>

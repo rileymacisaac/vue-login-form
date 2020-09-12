@@ -1,0 +1,153 @@
+// Variables
+@use 'reset' as *;
+@use 'fonts' as *;
+@use 'mixins' as *;
+@use 'variables' as *;
+
+// Utility classes
+.color-dark-blue {
+    color: $color-dark-blue;
+}
+
+.bg-dark-blue {
+    background: $color-dark-blue;
+}
+
+.color-light-blue {
+    color: $color-light-blue;
+}
+
+.bg-light-blue {
+    background: $color-light-blue;
+}
+
+.color-gray {
+    color: $color-gray;
+}
+
+.roboto {
+    @include roboto-regular;
+}
+
+.roboto-medium {
+    @include roboto-medium;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+// Base styles
+:root {
+    font-size: 14px;
+
+    @media only screen and (min-width: 1280px) {
+        font-size: 16px;
+    }
+}
+
+body {
+    background: linear-gradient(to top, $color-dark-blue 0%, $color-light-blue 100%) no-repeat;
+    color: $color-gray;
+}
+
+*:focus {
+    outline: currentcolor none medium;
+    transition: box-shadow 0.2s ease 0s;
+    box-shadow: white 0 0 0 2px, rgba($color-dark-blue, 1) 0 0 0 4px;
+}
+
+#app {
+    width: 80rem;
+    min-width: 75%;
+    max-width: 95%;
+    background: white;
+    margin-left: auto;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+    > * {
+        max-width: 80rem;
+        padding: 1rem 2rem;
+
+        @media only screen and (min-width: 1280px) {
+            padding: 2rem 4rem;
+        }
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 0 auto;
+}
+
+.header {
+    &__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 -1rem;
+
+        > * {
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+        }
+    }
+
+    &__lock {
+        font-size: 4rem;
+    }
+
+    &__nav ul {
+        display: flex;
+        list-style-type: none;
+
+        a {
+            font-size: 1.125rem;
+            margin: 0 1rem;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+footer {
+    margin-top: auto;
+}
+
+p,
+h1 {
+    max-width: 43.75rem;
+}
+
+a {
+    color: $color-light-blue;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+strong {
+    @include roboto-medium;
+}
+
+h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+}

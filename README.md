@@ -1,4 +1,12 @@
-# login-form
+# Vue.js Login Form
+
+If you'd like to generate production quality code, run `npm run build` as mentioned below.
+
+To view the generated files in `/dist`, install and run the following:
+```
+npm install -g serve
+serve -s dist
+```
 
 ## Project setup
 ```
@@ -19,6 +27,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
