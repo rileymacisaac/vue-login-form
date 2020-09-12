@@ -64,11 +64,18 @@
 		font-size: 1rem;
 	}
 
-	&__error {
+	&__msg {
 		width: 100%;
-		padding: 0.5rem 1rem;
-		background: #bb121a;
-		color: white;
 		margin-top: 0.3125rem;
+
+		&--error {
+			padding: 0.5rem 1rem;
+			background: #bb121a;
+			color: white;
+		}
+
+		&:not([class*='--error']) {
+			font-size: 1rem;
+		}
 	}
 }

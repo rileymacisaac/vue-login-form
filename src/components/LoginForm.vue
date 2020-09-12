@@ -5,17 +5,21 @@
 		<form class="login__form" @submit="validation" novalidate>
 			<div class="login__input">
 				<label for="username" class="color-light-blue roboto-medium">Username (required)</label>
-				<input type="text" id="username" name="username" ref="username" v-model="username" autocomplete="off" v-bind="uAttrs" autofocus required/>
+				<input type="text" id="username" name="username" ref="username" v-model="username" autocomplete="username" v-bind="uAttrs" autofocus required/>
 
-				<div class="login__error" v-if="uError"><strong>Error:</strong> <span id="username-error">{{ uError }}</span></div>
+				<div class="login__msg login__msg--error" v-if="uError"><strong>Error:</strong> <span id="username-error">{{ uError }}</span></div>
 			</div>
 
 			<div class="login__input">
 				<label for="password" class="color-light-blue roboto-medium">Password (required)</label>
-				<button class="login__show-pw bg-light-blue" type="button" :aria-label="!showPw ? 'Show password as plain text. This will display your password on the screen.' : false" @click="showPw = !showPw">{{ showPw ? 'Hide' : 'Show' }}<span class="visually-hidden">password</span></button>
-				<input :type="showPw ? 'text' : 'password'" id="password" name="password" ref="password" v-model="password" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" v-bind="pwAttrs" required/>
 
-				<div class="login__error" v-if="pwError"><strong>Error:</strong> <span id="password-error">{{ pwError }}</span></div>
+				<button class="login__show-pw bg-light-blue" type="button" aria-label="Show password as plain text" :aria-pressed="showPw ? 'true' : 'false'" @click="showPw = !showPw">{{ !showPw ? 'Show' : 'Hide' }}</button>
+
+				<div id="pw-hint" class="login__msg">{{ pwHint }}</div>
+
+				<input :type="showPw ? 'text' : 'password'" id="password" name="password" ref="password" v-model="password" autocomplete="current-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" v-bind="pwAttrs" required/>
+
+				<div class="login__msg login__msg--error" v-if="pwError"><strong>Error:</strong> <span id="password-error">{{ pwError }}</span></div>
 			</div>
 
 			<button class="bg-dark-blue roboto-medium" type="submit">Login</button>
@@ -38,6 +42,7 @@ export default {
 			pwAttrs: defaultAttrs,
 			defaultAttrs: defaultAttrs,
 			showPw: false,
+			pwHint: 'Password must contain at least one number, one uppercase letter, and one lowercase letter.'
 		}
 	},
 	methods: {
@@ -79,7 +84,7 @@ export default {
 				if (!this.password) { // If password is empty
 					this.pwError = 'Password is required to login';
 				} else if (password.validity.patternMismatch) { // If pattern is not matched
-					this.pwError = 'Password must contain at least one number, one uppercase letter, and one lowercase letter. For Example, "Access123".';
+					this.pwError = this.pwHint + ' For Example, "Access123"';
 				}
 
 				// Set attributes for input
